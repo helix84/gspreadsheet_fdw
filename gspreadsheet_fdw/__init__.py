@@ -27,6 +27,10 @@ class GspreadsheetFdw(ForeignDataWrapper):
         gc = gspread.authorize(credentials)
         self.wks = gc.open_by_key(fdw_options["gskey"]).sheet1
 
-    def execute(self, quals, columns):
-        return self.wks.get_all_records(head=int(self.headrow));
 
+    def execute(self, quals, columns):
+        table = self.wks.get_all_values()
+        table[0] = ["q%s" % (i) for i in range(len(table[0]))]
+        return table[self.headrow:];
+
+# Informazioni cronologiche   Dove vivi?  Età Professione

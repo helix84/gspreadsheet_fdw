@@ -1,0 +1,5 @@
+CREATE FUNCTION plr_call_handler()
+RETURNS LANGUAGE_HANDLER
+AS '$libdir/plr' LANGUAGE C;
+
+CREATE LANGUAGE plr HANDLER plr_call_handler;
